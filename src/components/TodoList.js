@@ -6,7 +6,7 @@ const TodoList = () => {
   const dispatch = useTodoListAction();
   const getVisibleTodos = () => {
     switch (filter) {
-      case "uncompleted": {
+      case "active": {
         return todoList.filter((todo) => !todo.isCompleted);
       }
       case "completed": {
