@@ -1,3 +1,4 @@
+import Footer from "./Footer";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 
@@ -7,6 +8,7 @@ const TodoApp = () => {
       <h1>todos</h1>
       <TodoForm />
       <TodoList />
+      <Footer />
     </div>
   );
 };
