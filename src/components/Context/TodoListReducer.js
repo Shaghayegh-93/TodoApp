@@ -15,6 +15,9 @@ const todoListReducer = (state, action) => {
       }));
       return { ...state, todoList: filterTodos };
     }
+    case "CHANGE_FILTER": {
+      return { ...state, filter: action.payload };
+    }
 
     default:
       return state;
