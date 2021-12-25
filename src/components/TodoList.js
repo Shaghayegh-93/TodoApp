@@ -1,8 +1,10 @@
+import { useEffect, useState } from "react";
 import { useTodoList, useTodoListAction } from "./Context/TodoListProvider";
+import Todo from "./Todo";
 
-const TodoList = () => {
+const TodoList = ({ isAllTodosSelected, onToggleAllTodos }) => {
   const { todoList, filter } = useTodoList();
-
+  const [editingId, setEditingId] = useState(null);
   const dispatch = useTodoListAction();
   const getVisibleTodos = () => {
     switch (filter) {
@@ -16,12 +18,17 @@ const TodoList = () => {
         return todoList;
     }
   };
-  const isAllTodosSelected = todoList.every((todo) => todo.isCompleted);
-  const onToggleAllTodos = (e) => {
-    dispatch({ type: "TOGGLE_ALL", payload: e.target.checked });
-  };
+
   const visibleTodos = getVisibleTodos();
   const noTodosClass = visibleTodos.length === 0 ? "hidden" : "";
+  useEffect(() => {
+    const saveTodoList = JSON.parse(localStorage.getItem("todoList"));
+    if (saveTodoList)
+      dispatch({ type: "SAVE_TO_LOCAL_STORAGE", payload: saveTodoList });
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("todoList", JSON.stringify(todoList));
+  }, [todoList]);
 
   return (
     <section className={`main ${noTodosClass}`}>
@@ -35,7 +42,14 @@ const TodoList = () => {
       <label htmlFor="toggleAll">mark all as completed</label>
       <ul className="todoList">
         {visibleTodos.map((todo) => {
-          return <li key={todo.id}>{todo.text}</li>;
+          return (
+            <Todo
+              key={todo.id}
+              todo={todo}
+              isEditing={editingId === todo.id}
+              setEditingId={setEditingId}
+            />
+          );
         })}
       </ul>
     </section>
