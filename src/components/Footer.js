@@ -1,18 +1,22 @@
-import { act } from "@testing-library/react";
 import { useTodoList, useTodoListAction } from "./Context/TodoListProvider";
 
-const Footer = () => {
+const Footer = ({ isAllTodosSelected, onToggleAllTodos }) => {
   const { todoList, filter } = useTodoList();
   const dispatch = useTodoListAction();
   const noTodosClass = todoList.length === 0 ? "hidden" : "";
+  const showClearCompleted =
+    onToggleAllTodos && isAllTodosSelected ? "clearCompleted" : "hidden";
   const activeCount = todoList.filter((todo) => !todo.isCompleted).length;
-  const itemsLeftText = `item${activeCount !== 1 ? "s" : ""} left`;
+  const itemsLeftText = `item${activeCount >= 1 ? "s" : ""} left`;
   const getSelectedClass = (filterName) => {
     return filter === filterName ? "selected" : "";
   };
   const changeFilter = (e, filterName) => {
     e.preventDefault();
     dispatch({ type: "CHANGE_FILTER", payload: filterName });
+  };
+  const clearCopletedTodos = () => {
+    dispatch({ type: "CLEAR_COMPLETED_TODOS" });
   };
 
   return (
@@ -50,6 +54,12 @@ const Footer = () => {
             Completed
           </a>
         </li>
+        <div
+          onClick={clearCopletedTodos}
+          className={`clearCompleted ${showClearCompleted}`}
+        >
+          clear completed
+        </div>
       </ul>
     </footer>
   );
