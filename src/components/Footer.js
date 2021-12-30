@@ -7,7 +7,7 @@ const Footer = ({ isAllTodosSelected, onToggleAllTodos }) => {
   const showClearCompleted =
     onToggleAllTodos && isAllTodosSelected ? "clearCompleted" : "hidden";
   const activeCount = todoList.filter((todo) => !todo.isCompleted).length;
-  const itemsLeftText = `item${activeCount >= 1 ? "s" : ""} left`;
+  const itemsLeftText = `Item${activeCount >= 2 ? "s" : ""} left`;
   const getSelectedClass = (filterName) => {
     return filter === filterName ? "selected" : "";
   };
