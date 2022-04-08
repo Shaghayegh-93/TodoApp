@@ -45,7 +45,6 @@ body {
 
 .todoApp input::placeholder {
   font-style: italic;
-
   color: #aeaeb0;
 }
 
@@ -307,7 +306,14 @@ html .clearCompleted:active {
   text-decoration: underline;
 }
 
-@media screen {
+@media (max-width: 320px) {
+  body {
+    padding: 10px;
+  }
+  .TodoHeader {
+    padding: 10px;
+    font-size: 12px;
+  }
   .toggleAll,
   .todoList li .toggle {
     background: none;
@@ -316,9 +322,6 @@ html .clearCompleted:active {
   .todoList li .toggle {
     height: 40px;
   }
-}
-
-@media (max-width: 430px) {
   .footer {
     height: 50px;
   }
@@ -326,4 +329,30 @@ html .clearCompleted:active {
   .filters {
     bottom: 10px;
   }
+
+  .todoCount {
+    float: none;
+  }
+
+  .clearCompleted {
+    display: none;
+  }
+  .todoApp input::placeholder {
+    font-size: 21px;
+  }
+  .todoList li label {
+    line-height: 1;
+    font-weight: 200;
+  }
+  .todoList li .destroy {
+    width: 20px;
+    height: 20px;
+
+    font-size: 21px;
+
+    margin-bottom: 11px;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
 }
